@@ -1,6 +1,7 @@
 """composants/obstacles.py"""
 from abc import ABC, abstractmethod
 import pygame
+import random
 
 cell_size = 10
 
@@ -54,34 +55,42 @@ class StaticObstacle(Obstacle):
         pass
 
 class DynamicObstacle(Obstacle):
-    """Movable obstacles like other vehicles."""
     def __init__(self, position, size, velocity, bounds):
         super().__init__(position, size)
         self.velocity = velocity
         self.bounds = bounds
         self.color = pygame.Color(255, 0, 0)
+        self.stuck_count = 0  # New attribute to track stuck state
 
     def update(self, obstacles):
-        """Update the position of the dynamic obstacle while avoiding collisions."""
-        # Predict the next position
         next_position = [
             self.position[0] + self.velocity[0],
             self.position[1] + self.velocity[1]
         ]
 
-        # Check collisions with bounds
-        if next_position[0] < self.bounds[0] or next_position[0] + self.size[0] > self.bounds[2]:
-            self.velocity[0] = -self.velocity[0]  # Reverse horizontal direction
-        if next_position[1] < self.bounds[1] or next_position[1] + self.size[1] > self.bounds[3]:
-            self.velocity[1] = -self.velocity[1]  # Reverse vertical direction
+        if self.stuck_count > 5:  # Randomize direction if stuck
+            self.velocity = [random.choice([-1, 1]) * abs(self.velocity[0]),
+                             random.choice([-1, 1]) * abs(self.velocity[1])]
+            self.stuck_count = 0
 
-        # Check collisions with other obstacles
+        if (next_position[0] < self.bounds[0] or 
+            next_position[0] + self.size[0] > self.bounds[2] or 
+            next_position[1] < self.bounds[1] or 
+            next_position[1] + self.size[1] > self.bounds[3]):
+            self.velocity[0] = -self.velocity[0]
+            self.velocity[1] = -self.velocity[1]
+            self.stuck_count += 1  # Increment stuck count
+            return
+
         for obstacle in obstacles:
             if obstacle is not self and obstacle.collides_with(next_position, self.size):
                 self.velocity[0] = -self.velocity[0]
                 self.velocity[1] = -self.velocity[1]
-                return 
+                self.stuck_count += 1  # Increment stuck count
+                return
 
-        # Update position if no collisions
+        # Move if no collisions
         self.position[0] += self.velocity[0]
         self.position[1] += self.velocity[1]
+        self.stuck_count = 0  # Reset stuck count
+

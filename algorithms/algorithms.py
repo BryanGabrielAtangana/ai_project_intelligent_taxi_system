@@ -1,4 +1,4 @@
-"""algorithmes.py"""
+"""algorithms.py"""
 
 import heapq
 
