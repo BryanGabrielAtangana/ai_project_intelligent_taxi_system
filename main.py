@@ -4,15 +4,13 @@ import random
 
 from composants.taxi import Taxi
 from composants.obstacle import StaticObstacle, DynamicObstacle
-from algorithmes import a_star
 
-# Constants
 car_speed = 15
 window_x = 1400
 window_y = 740
 cell_size = 10
 
-# Couleurs
+# Colors
 black = pygame.Color(40, 40, 40)
 white = pygame.Color(255, 255, 255)
 green = pygame.Color(0, 255, 0)
@@ -37,8 +35,7 @@ def generate_valid_position(obstacles, size):
         ):
             return position
 
-
-# Static buildings (extended city layout)
+# Static buildings
 buildings = [
     StaticObstacle([300, 200], [100, 100]),
     StaticObstacle([800, 400], [150, 80]),
@@ -58,14 +55,12 @@ for _ in range(5):  # 5 dynamic vehicles total
     moving_vehicles.append(DynamicObstacle(position, [20, 20], direction, [0, 0, window_x, window_y]))
 obstacles.extend(moving_vehicles)
 
-
 # Initialise taxi
 start_position = [100, 50]
+
 # Generate a valid destination point
 destination = generate_valid_position(buildings, [cell_size, cell_size])
 taxi = Taxi(start_position, destination, obstacles)
-
-
 
 # Main Game Loop
 while True:
