@@ -8,8 +8,8 @@ An interactive simulation showcasing intelligent autonomous taxis navigating a g
 - **Battery management**: Taxis monitor their battery levels, recharge when needed, and avoid running out of power.
 - **Control center**: A control center assigns each taxi to a waiting passenger 
 - **Passenger management**: Taxis pick up and drop off passengers dynamically based on availability.  
-- **Charging Stations**: Strategically placed stations allow taxis to recharge their batteries.  
-- **Dynamic Obstacles**: Taxis adapt their paths in real-time to avoid obstacles.  
+- **Charging stations**: Strategically placed stations allow taxis to recharge their batteries.  
+- **Dynamic obstacles**: Taxis adapt their paths in real-time to avoid obstacles.  
 
 ## Performance Metrics  
 
