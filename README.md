@@ -11,6 +11,38 @@ An interactive simulation showcasing intelligent autonomous taxis navigating a g
 - **Charging Stations**: Strategically placed stations allow taxis to recharge their batteries.  
 - **Dynamic Obstacles**: Taxis adapt their paths in real-time to avoid obstacles.  
 
+## Performance Metrics  
+
+To evaluate the efficiency of the taxis, the following metrics are measured during the simulation:  
+
+1. **Ride Completion Rate**  
+   - Percentage of successfully completed passenger rides compared to total ride requests.  
+   - **Formula**:  
+     \[
+     \text{Ride Completion Rate (\%)} = \left(\frac{\text{Completed Rides}}{\text{Total Ride Requests}}\right) \times 100
+     \]
+
+2. **Battery Efficiency**  
+   - Average battery consumption per completed ride.  
+   - **Formula**:  
+     \[
+     \text{Battery Efficiency} = \frac{\text{Total Battery Consumed}}{\text{Completed Rides}}
+     \]
+
+3. **Idle Time**  
+   - Total time a taxi spends waiting without passengers or tasks.  
+
+4. **Average Ride Duration**  
+   - Time taken to complete a ride from pickup to dropoff.  
+
+5. **Charging Efficiency**  
+   - Time spent recharging compared to operational time.  
+
+6. **Distance Traveled**  
+   - Total distance covered by each taxi during the simulation.  
+
+All metrics are displayed on the simulation window.  
+
 ## Prerequisites  
 - Python 3.8+  
 - `pygame` library for visualization
@@ -67,4 +99,7 @@ An interactive simulation showcasing intelligent autonomous taxis navigating a g
    Each taxi has a battery indicator displayed above it. Green indicates sufficient battery, yellow indicates medium, and red warns of low battery.  
 
 4. **Recharge**  
-   When a taxi’s battery is low, it automatically heads to the nearest charging station.  
+   When a taxi’s battery is low, it automatically heads to the nearest charging station.
+
+You're right! Let me update the README to include **Taxi Performance Metrics** and how they are measured.  
+
