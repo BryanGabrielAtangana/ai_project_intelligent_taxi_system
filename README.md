@@ -86,7 +86,7 @@ All metrics are displayed on the simulation window.
   - `obstacle`: Obstacle behavior. Can be static or dynamique.
 - **`algorithmes/`**: Pathfinding and related algorithm.  
 
-## How to Use  
+## How it works  
 
 1. **Run the Simulation**  
    Launch `main.py` to start the simulation. The grid, taxis, passengers, and charging stations will appear on the screen.  
@@ -100,5 +100,4 @@ All metrics are displayed on the simulation window.
 4. **Recharge**  
    When a taxi’s battery is low, it automatically heads to the nearest charging station.
 
-You're right! Let me update the README to include **Taxi Performance Metrics** and how they are measured.  
 
