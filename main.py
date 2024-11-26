@@ -1,10 +1,11 @@
-"""main.py"""
 import pygame
 import random
-
 from composants.taxi import Taxi
 from composants.obstacle import StaticObstacle, DynamicObstacle
+from composants.control_center import ControlCenter
+from composants.taxi_stop import TaxiStop
 
+# Constants
 car_speed = 15
 window_x = 1400
 window_y = 740
@@ -15,27 +16,13 @@ black = pygame.Color(40, 40, 40)
 white = pygame.Color(255, 255, 255)
 green = pygame.Color(0, 255, 0)
 
-# Initialise pygame
+# Initialize pygame
 pygame.init()
 pygame.display.set_caption('Projet IA : Taxi Intelligent')
 game_window = pygame.display.set_mode((window_x, window_y))
 fps = pygame.time.Clock()
 
-obstacles = []
-
-def generate_valid_position(obstacles, size):
-    """Generate a valid position that does not overlap with obstacles."""
-    while True:
-        position = [
-            random.randrange(0, (window_x // cell_size)) * cell_size,
-            random.randrange(0, (window_y // cell_size)) * cell_size
-        ]
-        if not any(
-            obstacle.collides_with(position, size) for obstacle in obstacles
-        ):
-            return position
-
-# Static buildings
+# Static buildings (obstacles)
 buildings = [
     StaticObstacle([300, 200], [100, 100]),
     StaticObstacle([800, 400], [150, 80]),
@@ -45,22 +32,30 @@ buildings = [
     StaticObstacle([1000, 100], [180, 150]),
     StaticObstacle([400, 100], [130, 90])
 ]
-obstacles.extend(buildings)
 
-# Generate initial positions for moving vehicles
+# Generate dynamic vehicles (moving obstacles)
 moving_vehicles = []
 for _ in range(5):  # 5 dynamic vehicles total
-    position = generate_valid_position(buildings, [20, 20])
+    position = [random.randrange(0, window_x // cell_size) * cell_size, 
+                random.randrange(0, window_y // cell_size) * cell_size]
     direction = [random.choice([-1, 1]), random.choice([-1, 1])]  # Random initial direction
     moving_vehicles.append(DynamicObstacle(position, [20, 20], direction, [0, 0, window_x, window_y]))
-obstacles.extend(moving_vehicles)
 
-# Initialise taxi
-start_position = [100, 50]
+# Initialize taxi stops
+taxi_stops = [TaxiStop([random.randrange(0, window_x // cell_size) * cell_size, 
+                        random.randrange(0, window_y // cell_size) * cell_size]) for _ in range(5)]
 
-# Generate a valid destination point
-destination = generate_valid_position(buildings, [cell_size, cell_size])
-taxi = Taxi(start_position, destination, obstacles)
+# Initialize taxis
+taxis = []
+for _ in range(3):  # 3 taxis for the demo
+    start_position = [random.randrange(0, window_x // cell_size) * cell_size, 
+                      random.randrange(0, window_y // cell_size) * cell_size]
+    destination = [random.randrange(0, window_x // cell_size) * cell_size, 
+                   random.randrange(0, window_y // cell_size) * cell_size]
+    taxis.append(Taxi(start_position, destination, buildings + moving_vehicles))
+
+# Create the control center
+control_center = ControlCenter(taxis, taxi_stops)
 
 # Main Game Loop
 while True:
@@ -69,33 +64,31 @@ while True:
             pygame.quit()
             quit()
 
-    # Update dynamic obstacles
+    # Update dynamic obstacles (moving vehicles)
     for vehicle in moving_vehicles:
-        vehicle.update(obstacles)
+        vehicle.update(buildings + moving_vehicles)
 
-    # Move the taxi
-    taxi.move()
-
-    # Check if Taxi reached destination
-    if taxi.position == taxi.destination:
-        taxi.update_destination()
+    # Update taxis and their passengers
+    control_center.update()
 
     # Rendering
     game_window.fill(black)
 
-    # Draw static obstacles
+    # Draw static obstacles (buildings)
     for building in buildings:
         pygame.draw.rect(game_window, building.color, pygame.Rect(building.position[0], building.position[1], building.size[0], building.size[1]))
 
-    # Draw dynamic obstacles
+    # Draw dynamic obstacles (moving vehicles)
     for vehicle in moving_vehicles:
         pygame.draw.rect(game_window, vehicle.color, pygame.Rect(vehicle.position[0], vehicle.position[1], vehicle.size[0], vehicle.size[1]))
 
-    # Draw taxi
-    pygame.draw.rect(game_window, green, pygame.Rect(taxi.position[0], taxi.position[1], cell_size, cell_size))
+    # Draw taxis
+    for taxi in taxis:
+        pygame.draw.rect(game_window, green, pygame.Rect(taxi.position[0], taxi.position[1], cell_size, cell_size))
 
-    # Draw destination
-    pygame.draw.rect(game_window, white, pygame.Rect(taxi.destination[0], taxi.destination[1], cell_size, cell_size))
+    # Draw taxi stops
+    for stop in taxi_stops:
+        pygame.draw.circle(game_window, white, (stop.position[0], stop.position[1]), 10)
 
     pygame.display.update()
     fps.tick(car_speed)
