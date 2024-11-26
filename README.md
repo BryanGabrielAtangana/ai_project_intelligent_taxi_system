@@ -84,7 +84,7 @@ All metrics are displayed on the simulation window.
   - `charging_station.py`: Logic for charging stations.
   - `display_stats`: Class to display the stats.
   - `obstacle`: Obstacle behavior. Can be static or dynamique.
-- **`algorithmes/`**: Pathfinding and related algorithm.  
+- **`algorithmes.py`**: Pathfinding and related algorithm.  
 
 ## How it works  
 
