@@ -79,7 +79,8 @@ All metrics are displayed on the simulation window.
 
 - **`main.py`**: Entry point of the simulation.  
 - **`composants/`**:  
-  - `taxi.py`: Taxi behavior and management logic.  
+  - `taxi.py`: Taxi behavior and management logic.
+  - `taxi_stop` : Class contains the points where the rides will be completed.
   - `passenger.py`: Passengers with destination of each.  
   - `charging_station.py`: Logic for charging stations.
   - `display_stats`: Class to display the stats.
