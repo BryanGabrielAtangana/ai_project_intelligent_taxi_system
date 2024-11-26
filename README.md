@@ -17,17 +17,16 @@ To evaluate the efficiency of the taxis, the following metrics are measured duri
 
 1. **Ride Completion Rate**  
    - Percentage of successfully completed passenger rides compared to total ride requests.  
-   - **Formula**:  
-     \[
-     \text{Ride Completion Rate (\%)} = \left(\frac{\text{Completed Rides}}{\text{Total Ride Requests}}\right) \times 100
-     \]
+   - **Formula**: 
+    ![image](https://github.com/user-attachments/assets/7ca78934-0772-4895-b4eb-3db6ce005cba)
+
 
 2. **Battery Efficiency**  
    - Average battery consumption per completed ride.  
-   - **Formula**:  
-     \[
-     \text{Battery Efficiency} = \frac{\text{Total Battery Consumed}}{\text{Completed Rides}}
-     \]
+   - **Formula**:
+     
+    ![image](https://github.com/user-attachments/assets/a514ca0c-4d2a-477d-947f-4f031a41aa6c)
+
 
 3. **Idle Time**  
    - Total time a taxi spends waiting without passengers or tasks.  
