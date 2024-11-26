@@ -1,2 +1,2 @@
-class TaxiStop:
+class Passenger:
     NotImplemented

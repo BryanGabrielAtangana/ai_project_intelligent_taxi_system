@@ -1,17 +1,15 @@
 """composants/obstacles.py"""
 from abc import ABC, abstractmethod
-import random
 import pygame
 
 cell_size = 10
 
-
 class Obstacle(ABC):
     """Base abstract class for all obstacles"""
     def __init__(self, position, size):
-        self.position = position  # [x, y]
-        self.size = size  # [width, height]
-        self.color = pygame.Color(255, 0, 0)  # Red by default
+        self.position = position
+        self.size = size
+        self.color = pygame.Color(255, 0, 0) 
     
     @abstractmethod
     def update(self):
@@ -49,7 +47,7 @@ class StaticObstacle(Obstacle):
     """Immovable obstacles like buildings or barriers"""
     def __init__(self, position, size):
         super().__init__(position, size)
-        self.color = pygame.Color(139, 69, 19)  # Brown color for static obstacles
+        self.color = pygame.Color(139, 69, 19)
     
     def update(self):
         """Static obstacles don't move, so no update needed"""
@@ -59,9 +57,9 @@ class DynamicObstacle(Obstacle):
     """Movable obstacles like other vehicles."""
     def __init__(self, position, size, velocity, bounds):
         super().__init__(position, size)
-        self.velocity = velocity  # [vx, vy]
-        self.bounds = bounds  # [xmin, ymin, xmax, ymax]
-        self.color = pygame.Color(255, 0, 0)  # Red for dynamic obstacles
+        self.velocity = velocity
+        self.bounds = bounds
+        self.color = pygame.Color(255, 0, 0)
 
     def update(self, obstacles):
         """Update the position of the dynamic obstacle while avoiding collisions."""
@@ -80,9 +78,9 @@ class DynamicObstacle(Obstacle):
         # Check collisions with other obstacles
         for obstacle in obstacles:
             if obstacle is not self and obstacle.collides_with(next_position, self.size):
-                self.velocity[0] = -self.velocity[0]  # Reverse direction on collision
+                self.velocity[0] = -self.velocity[0]
                 self.velocity[1] = -self.velocity[1]
-                return  # Stop updating if collision occurs
+                return 
 
         # Update position if no collisions
         self.position[0] += self.velocity[0]

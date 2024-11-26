@@ -1,6 +1,6 @@
 """composants.taxi.py"""
 import random
-from algorithmes import a_star
+from ai_project.algorithms import a_star
 
 window_x = 1400
 window_y = 740
