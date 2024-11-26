@@ -1,4 +1,4 @@
-class CentraleTaxi:
+class ControlCenter:
     def __init__(self, taxis, stops):
         self.taxis = taxis  
         self.stops = stops 
