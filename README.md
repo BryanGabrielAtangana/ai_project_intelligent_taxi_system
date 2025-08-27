@@ -1,6 +1,8 @@
 # Intelligent Taxi Simulator
 
-An interactive simulation showcasing intelligent autonomous taxis navigating a grid-based city. The taxis optimize their movements using pathfinding algorithms like A\* to pick up and drop off passengers, manage battery levels, and recharge at stations when needed.
+**Autonomous Taxi Fleet Simulation for Reinforcement Learning**
+- Architected and built an interactive simulation of an autonomous taxi fleet navigating a grid-based city, designed as a testbed for Reinforcement Learning (RL) strategies.
+- Implemented complex agent logic including A* pathfinding for movement optimization, passenger pick-up/drop-off cycles, and dynamic battery level management with automated recharging.
 
 ## Features
 
